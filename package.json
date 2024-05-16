@@ -5,7 +5,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsx src/index.ts"
+    "dev": "tsx src/index.ts",
+    "compile-db": "node src/dataToJson.js",
+    "build": "yarn compile-db && tsx src/index.ts",
+    "push": "f() { git add . && git commit -m \"${1}\" && git push; }; f"
   },
   "dependencies": {
     "csvtojson": "^2.0.10",
