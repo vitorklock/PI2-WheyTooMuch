@@ -7,6 +7,8 @@ import fs from 'fs';
 (async () => {
     const json = await csvtojson().fromFile(path.resolve('src/data.csv'));
 
+    // const sample = json.splice(37, 2);
+
     const trucks = json.map(o => {
         o = Object.fromEntries(Object.entries(o).map(([key, value]) => ([key.replace('Vehicle', ''), value])));
 
@@ -31,6 +33,18 @@ import fs from 'fs';
                 return Number(v);
             })
             .filter(Boolean);
+
+        truck.axleGroups = truck.axleWeights
+            .slice(1, truck.axleWeights.length)
+            .reduce((acc, cur, i) => {
+                const distance = truck.axleDistances[i];
+
+                if (distance <= 2400) acc[acc.length - 1].push(cur);
+                else acc.push([cur]);
+
+                return acc;
+            }, [[truck.axleWeights[0]]])
+            .filter(axleGroup => axleGroup.length);
 
         return truck;
     });
