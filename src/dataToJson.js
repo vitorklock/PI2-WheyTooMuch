@@ -14,10 +14,10 @@ import fs from 'fs';
 
         const truck = {
             id: o.VBVID,
-            length: o.Lenght,
-            speed: o.Speed,
-            weight: o.Weight,
-            axles: o.Axles,
+            length: Number(o.Lenght),
+            speed: Number(o.Speed),
+            weight: Number(o.Weight),
+            axles: Number(o.Axles),
         };
 
         truck.axleWeights = Object.entries(o)

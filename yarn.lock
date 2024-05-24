@@ -131,6 +131,16 @@ csvtojson@^2.0.10:
     lodash "^4.17.3"
     strip-bom "^2.0.0"
 
+deeks@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/deeks/-/deeks-3.1.0.tgz#ecc47c600bcc6dbda656c6d86bbc96cbe126fd41"
+  integrity sha512-e7oWH1LzIdv/prMQ7pmlDlaVoL64glqzvNgkgQNgyec9ORPHrT2jaOqMtRyqJuwWjtfb6v+2rk9pmaHj+F137A==
+
+doc-path@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/doc-path/-/doc-path-4.1.1.tgz#5be8c1671877f6b719af5a6077c41904be8913ac"
+  integrity sha512-h1ErTglQAVv2gCnOpD3sFS6uolDbOKHDU1BZq+Kl3npPqroU3dYL42lUgMfd5UimlwtRgp7C9dLGwqQ5D2HYgQ==
+
 esbuild@~0.20.2:
   version "0.20.2"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.20.2.tgz#9d6b2386561766ee6b5a55196c6d766d28c87ea1"
@@ -176,6 +186,14 @@ is-utf8@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-utf8/-/is-utf8-0.2.1.tgz#4b0da1442104d1b336340e80797e865cf39f7d72"
   integrity sha512-rMYPYvCzsXywIsldgLaSoPlw5PfoB/ssr7hY4pLfcodrA5M/eArza1a9VmTiNIBNMjOGr1Ow9mTyU2o69U6U9Q==
+
+json-2-csv@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/json-2-csv/-/json-2-csv-5.5.1.tgz#2ad4e69d4b2bb4590203948a36f11347a4d7aed9"
+  integrity sha512-KgAtAXTQopRwe90gh8SgjRSxgt9bUWbGAPMo9W0TZLA8SqiQH7khtagFfeEUjG3NBPwJu/+9uX5pMvunKaPvrQ==
+  dependencies:
+    deeks "3.1.0"
+    doc-path "4.1.1"
 
 lodash@^4.17.3:
   version "4.17.21"
