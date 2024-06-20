@@ -40,13 +40,18 @@ const REAR_AXLE_GROUP_DATA = [
     { allowedWeight: 25000 },   //TT
 ];
 
+const invalids = [];
+
 const analyses: Array<IAnalysisResult> = data
     .map(truck => {
 
-        console.log(truck)
+        // console.log(truck)
 
         // Regra de cacaca 1
-        if (truck.axleGroups[0].length >= 3) return;
+        if (truck.axleGroups[0].length >= 3) {
+            invalids.push(truck);
+            return;
+        }
 
         const maxAllowedWeights = truck.axleGroups.map((g, i) => ((i === 0 ? FRONT_AXLE_GROUP_DATA : REAR_AXLE_GROUP_DATA)[g.length - 1].allowedWeight));
         const tolerantMaxAllowedWeights = maxAllowedWeights.map(w => w * (1 + PER_AXLE_TOLERANCE));
@@ -54,11 +59,10 @@ const analyses: Array<IAnalysisResult> = data
         const maxAllowedPBT = maxAllowedWeights.reduce((partialSum, a) => partialSum + a, 0);
         const tollerantMaxAllowedPBT = maxAllowedPBT * (1 + PBT_TOLERANCE);
 
-
-        console.log('maxAllowedWeights', maxAllowedWeights)
-        console.log('tollerantMaxAllowedWeights', tolerantMaxAllowedWeights)
-        console.log('maxAllowedPBT', maxAllowedPBT)
-        console.log('tollerantMaxAllowedWeight', tollerantMaxAllowedPBT)
+        // console.log('maxAllowedWeights', maxAllowedWeights)
+        // console.log('tollerantMaxAllowedWeights', tolerantMaxAllowedWeights)
+        // console.log('maxAllowedPBT', maxAllowedPBT)
+        // console.log('tollerantMaxAllowedWeight', tollerantMaxAllowedPBT)
 
         const pbtAnalysis: IRegularityAnalysis = {
             allowed: maxAllowedPBT,
@@ -67,7 +71,7 @@ const analyses: Array<IAnalysisResult> = data
             passed: truck.weight <= tollerantMaxAllowedPBT,
         };
 
-        console.log('pbtAnalysis', pbtAnalysis);
+        // console.log('pbtAnalysis', pbtAnalysis);
 
         const axleGroupsAnalysis: Array<IRegularityAnalysis> = truck.axleGroups.map((ag, i) => {
             const axleWeightSum = ag.reduce((partialSum, a) => partialSum + a, 0);
@@ -81,7 +85,7 @@ const analyses: Array<IAnalysisResult> = data
             };
         });
 
-        console.log('axleGroupsAnalysis', axleGroupsAnalysis);
+        // console.log('axleGroupsAnalysis', axleGroupsAnalysis);
 
         const analysis: IAnalysisResult = {
             id: truck.id,
@@ -97,11 +101,16 @@ const analyses: Array<IAnalysisResult> = data
 
 const result = {
     trucks: data,
+    invalids,
     analyses,
     tolerances: {
         perAxle: PER_AXLE_TOLERANCE,
         pbt: PBT_TOLERANCE,
     }
 };
+
+console.log(result)
+
+console.log('INVALID ', result.invalids.length)
 
 fs.writeFileSync(path.resolve('src/result.json'), JSON.stringify(result), 'utf8');
