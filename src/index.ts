@@ -91,7 +91,7 @@ const analyses: Array<IAnalysisResult> = data
             id: truck.id,
             pbt: pbtAnalysis,
             axleGroups: axleGroupsAnalysis,
-            passed: pbtAnalysis.allowed && axleGroupsAnalysis.every(a => a.allowed),
+            passed: pbtAnalysis.passed && (pbtAnalysis.reading < 50000 || axleGroupsAnalysis.every(a => a.passed)),
         };
 
         return analysis;
@@ -111,6 +111,23 @@ const result = {
 
 console.log(result)
 
-console.log('INVALID ', result.invalids.length)
+console.log('total', result.analyses.length)
+console.log('passou', result.analyses.filter(a => a.passed).length)
+console.log('n passou', result.analyses.filter(a => !a.passed).length)
+// console.log('n passou', JSON.stringify(result.analyses.filter(a => !a.passed), null, 4));
+// console.log('n passou', JSON.stringify(data.filter(d=> result.analyses.filter(a => !a.passed).map(a => a.id).includes(d.id)), null, 4));
 
 fs.writeFileSync(path.resolve('src/result.json'), JSON.stringify(result), 'utf8');
+
+console.log('RESULT JSON FILE WRITTEN');
+
+
+
+
+
+
+
+
+
+
+
