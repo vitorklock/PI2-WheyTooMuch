@@ -40,18 +40,24 @@ const REAR_AXLE_GROUP_DATA = [
     { allowedWeight: 25000 },   //TT
 ];
 
-const invalids = [];
+const invalids: typeof data = [];
 
 const analyses: Array<IAnalysisResult> = data
     .map(truck => {
 
-        // console.log(truck)
+        console.log(truck)
 
         // Regra de cacaca 1
-        if (truck.axleGroups[0].length >= 3) {
+        // if (truck.axleGroups[0].length >= 3 || truck.axleGroups[1].length >= 4) {
+        //     invalids.push(truck);
+        //     return;
+        // }
+
+        if (truck.axleGroups.length <= 1 || truck.axleGroups.map((g, i) => (i === 0 ? g.length >= 3 : g.length >= 4)).some(Boolean)) {
             invalids.push(truck);
             return;
         }
+
 
         const maxAllowedWeights = truck.axleGroups.map((g, i) => ((i === 0 ? FRONT_AXLE_GROUP_DATA : REAR_AXLE_GROUP_DATA)[g.length - 1].allowedWeight));
         const tolerantMaxAllowedWeights = maxAllowedWeights.map(w => w * (1 + PER_AXLE_TOLERANCE));
@@ -111,9 +117,14 @@ const result = {
 
 console.log(result)
 
+
+console.log('invalid', result.invalids.length)
 console.log('total', result.analyses.length)
 console.log('passou', result.analyses.filter(a => a.passed).length)
 console.log('n passou', result.analyses.filter(a => !a.passed).length)
+
+// console.log(invalids.filter(inv => inv.axleGroups.length != 1))
+
 // console.log('n passou', JSON.stringify(result.analyses.filter(a => !a.passed), null, 4));
 // console.log('n passou', JSON.stringify(data.filter(d=> result.analyses.filter(a => !a.passed).map(a => a.id).includes(d.id)), null, 4));
 
