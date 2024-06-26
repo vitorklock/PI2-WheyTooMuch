@@ -45,7 +45,7 @@ const invalids: typeof data = [];
 const analyses: Array<IAnalysisResult> = data
     .map(truck => {
 
-        console.log(truck)
+        // console.log(truck)
 
         // Regra de cacaca 1
         // if (truck.axleGroups[0].length >= 3 || truck.axleGroups[1].length >= 4) {
@@ -115,13 +115,13 @@ const result = {
     }
 };
 
-console.log(result)
+// console.log(result)
 
 
-console.log('invalid', result.invalids.length)
-console.log('total', result.analyses.length)
-console.log('passou', result.analyses.filter(a => a.passed).length)
-console.log('n passou', result.analyses.filter(a => !a.passed).length)
+// console.log('invalid', result.invalids.length)
+// console.log('total', result.analyses.length)
+// console.log('passou', result.analyses.filter(a => a.passed).length)
+// console.log('n passou', result.analyses.filter(a => !a.passed).length)
 
 // console.log(invalids.filter(inv => inv.axleGroups.length != 1))
 
@@ -130,7 +130,7 @@ console.log('n passou', result.analyses.filter(a => !a.passed).length)
 
 fs.writeFileSync(path.resolve('src/result.json'), JSON.stringify(result), 'utf8');
 
-console.log('RESULT JSON FILE WRITTEN');
+// console.log('RESULT JSON FILE WRITTEN');
 
 
 

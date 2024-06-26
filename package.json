@@ -6,9 +6,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx --watch src/index.ts",
+    "dev-result": "tsx --watch src/resultToCsv.ts",
     "compile-db": "node src/dataToJson.js",
     "compile-result": "tsx src/resultToCsv.ts",
-    "build": "yarn compile-db && tsx src/index.ts",
+    "build": "yarn compile-db && tsx src/index.ts && tsx src/resultToCsv.ts",
     "push": "f() { git add . && git commit -m \"${1}\" && git push; }; f"
   },
   "dependencies": {
